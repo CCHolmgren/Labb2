@@ -2,26 +2,26 @@
 
 namespace Controller;
 
-require_once("./view/PageView.php");
-require_once("./view/Cookie.php");
-require_once("./model/Model.php");
+require_once("../view/PageView.php");
+require_once("../view/Cookie.php");
+require_once("../model/Model.php");
 
 Class Controller{
 	private $Model;
 	private $View;
 	private $Cookie;
 
-	public function __construct(){
-	 $this->Model = new \Model\Model();
-	 $this->View = new \View\PageView();
-	 $this->Cookie = new \View\Cookie($this->View);
+        public function __construct(){
+            $this->Model = new \Model\Model();
+            $this->View = new \View\PageView();
+            $this->Cookie = new \View\Cookie($this->View);
 
 
-	}
-	public function ifLogedIn(){
-		if ($this->Model->userLoggedIn()){
-			return true;
-		}
+        }
+        public function ifLogedIn(){
+            if ($this->Model->userLoggedIn()){
+                return true;
+            }
 		$TextDocument = $this->Model->getTextDocument();
 		$saltedPassword = $this->Model->getSaltedPassword();
 		if ($this->Cookie->checkIfUserInCookie($saltedPassword, $TextDocument)) {

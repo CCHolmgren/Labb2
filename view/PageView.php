@@ -66,7 +66,7 @@ Class PageView{
 		$username = "";
 		$timeValue = $this->timeString->getTime();
 
-		//om user posted username, set it as value in input
+		//if user posted username, set it as value in input
 		if (isset($_POST[$this->username])) {
 			$username = $_POST[$this->username]; 
 		}
@@ -74,9 +74,8 @@ Class PageView{
 		<html>
 			<header>
 				<title>Admin</title>
-					<meta http-equiv="content-type" content="text/html" charset="utf-8">
+				<meta http-equiv="content-type" content="text/html" charset="utf-8">
 			</header>
-
 				<body>
 					<form id="LogIn" name="LogIn" method="post" action="?login">
 						Användarnamn:
@@ -86,8 +85,7 @@ Class PageView{
 						<input type ="submit" name="logInButton" id="button" value="Logga in">
 						<label for="AutologinID" >Håll mig inloggad  :</label>
 						<input type="checkbox" name="LoginView::Checked" id="AutologinID" />
-						'.$this->getErrorMessage().''.$timeValue.'
-										
+						' . $this->getErrorMessage() . $timeValue . '
 					</form>
 				</body>
 		</html>';
@@ -98,15 +96,16 @@ Class PageView{
 	public function getSecondPage(){
 		$HTML2 ='<html>
 					<head>
-						<h1>Admin</h1>
 						<title>Admin</title>
-						'.$this->getErrorMessage().'
 						<meta http-equiv="content-type" content="text/html"; charset="utf-8">
+                    </head>
+                    <body>
+                        <h1>Logged in</h1>
+                        <p>'.$this->getErrorMessage().'</p>
 						<form action = "?logOut" method = "post"> 
 						<input type ="submit" name="logOutButton" id="button" value="Log Out">
-						
 						</form>
-					</head>
+                    </body>
 				</html>';
 
 		return $HTML2;
@@ -115,14 +114,12 @@ Class PageView{
 	public function onLoginButtonClick(){
 		if(isset($_POST[$this->logInButton])){
 			return true;
-
 		}
 		return false;
 	}
 	public function onLogoutButtonClick(){
 		if(isset($_POST[$this->logOutButton])){
 			return true;
-
 		}
 		return false;
 	}
@@ -130,7 +127,6 @@ Class PageView{
 
 	public function getPassword(){
 		if (isset($_POST[$this->password])) {
-		
 			return $_POST[$this->password];
 		}
 	
@@ -143,10 +139,9 @@ Class PageView{
 	}
 
 	public function getCheckbox(){
-	if(isset($_POST[$this->checkBox])){
-		return true;
-
-	}
-	return false;
-}
+        if(isset($_POST[$this->checkBox])){
+            return true;
+        }
+        return false;
+    }
 }
