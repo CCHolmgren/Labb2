@@ -25,11 +25,13 @@ class RegistrationController {
                 $this->model = new \Model\Model($this->view->getUsername(), $this->view->getPassword(), $this->view->getRepeatedPassword());
                 $this->model->validatePost("<br />");
                 $this->model->addUser();
+                header("Location: " . "/Labb2/Login/" . "?username=" . urlencode($this->model->username) . "&message=".urlencode("Registrering av ny användare lyckades"));
+                exit;
             }catch(\Exception $e){
                 $message = $e->getMessage();
             }
         }
-        return $this->view->getRegistrationForm($message,$this->view->getUsername());
+        return $this->view->getRegistrationForm($message,@$this->model->username);
     }
 
 }

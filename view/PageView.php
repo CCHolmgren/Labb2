@@ -63,11 +63,17 @@ Class PageView{
 	}
 
 	public function getFirstPage(){
-		$username = "";
+        $username = "";
+        $message = "";
+        if(isset($_GET["message"]))
+            $message = urldecode(htmlspecialchars($_GET["message"]));
+        if(isset($_GET["username"]))
+            $username = urldecode(htmlspecialchars($_GET["username"]));
+
 		$timeValue = $this->timeString->getTime();
 
 		//if user posted username, set it as value in input
-		if (isset($_POST[$this->username])) {
+		if ($username === "" && isset($_POST[$this->username])) {
 			$username = $_POST[$this->username]; 
 		}
 		$HTML ='
@@ -77,6 +83,7 @@ Class PageView{
 				<meta http-equiv="content-type" content="text/html" charset="utf-8">
 			</header>
 				<body>
+				'.$message.'
 					<form id="LogIn" name="LogIn" method="post" action="?login">
 						Användarnamn:
 						<input name="username" type="text" value="' . $username . '" id="username" size="40"/>

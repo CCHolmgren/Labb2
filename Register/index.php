@@ -8,7 +8,6 @@
 session_start();
 
 require_once("../controller/RegistrationController.php");
-var_dump($_POST);
 $controller = new \Controller\RegistrationController();
 try {
     echo $controller->getHTML();

@@ -18,7 +18,7 @@ Class Model extends Database {
 	private $userBrowser = "UserBrowser";
 	private $password;// = "Password";
 	private $admin;// = "Admin";
-    private $username;
+    public $username;
     private $passwordCorrect;
     private $repeatedPassword;
 
@@ -48,6 +48,10 @@ Class Model extends Database {
         if(mb_strlen($this->username) < 3){
             $errors[] = "Användarnamnet har för få tecken. Minst 3 tecken.";
         }
+        if(strip_tags($this->username) !== $this->username){
+            $this->username = strip_tags($this->username);
+            $errors[] = "Användarnamnet innehåller ogiltiga tecken";
+        }
         if(mb_strlen($this->password) < 6 ||mb_strlen($this->repeatedPassword)<6){
             $errors[] = "Lösenorden har för få tecken. Minst 6 tecken.";
         }
@@ -64,10 +68,9 @@ Class Model extends Database {
     private function usernameExistsInDataBase($username){
         try {
             $connection = $this->getConnection();
-            $sth = $connection->prepare("SELECT * FROM users WHERE username = ?");
+            $sth = $connection->prepare("SELECT 1 FROM users WHERE username = ?");
             $sth->execute(array($username));//password_hash($password, PASSWORD_DEFAULT)));
-            $rows = $sth->fetch(\PDO::FETCH_COLUMN);
-            if($rows!=="0"){
+            if($sth->fetch()){
                 return true;
             }
             return false;
@@ -138,7 +141,7 @@ Class Model extends Database {
 
 
 
-	private function verifyUser($password, $username, $Checkbox){
+	public function verifyUser($password, $username, $Checkbox){
         var_dump($this->userExistsInDataBase($username, $password));
         return $this->userExistsInDataBase($username, $password);
 
