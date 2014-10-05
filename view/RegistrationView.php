@@ -51,6 +51,8 @@ class RegistrationView{
                         <title>Register</title>
                     </head>
                     <body>
+                    <a href='../Login/'>Login</a>
+                    <a href='../'>Base</a>
                         $message
                         <form method='post'>
                                 <label for='Username'>Username</label>

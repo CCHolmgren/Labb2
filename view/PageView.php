@@ -83,6 +83,8 @@ Class PageView{
 				<meta http-equiv="content-type" content="text/html" charset="utf-8">
 			</header>
 				<body>
+				<a href="../Register/">Register</a>
+                    <a href="../">Base</a>
 				'.$message.'
 					<form id="LogIn" name="LogIn" method="post" action="?login">
 						Användarnamn:
