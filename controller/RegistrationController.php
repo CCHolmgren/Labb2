@@ -6,8 +6,8 @@
  * Time: 16:20
  */
 namespace Controller;
-require_once("../view/RegistrationView.php");
-require_once("../model/Model.php");
+require_once(__ROOT__."/view/RegistrationView.php");
+require_once(__ROOT__."/model/Model.php");
 
 class RegistrationController {
     private $view;
@@ -28,7 +28,7 @@ class RegistrationController {
                 header("Location: " . "/Labb2/Login/" . "?username=" . urlencode($this->model->username) . "&message=".urlencode("Registrering av ny användare lyckades"));
                 exit;
             }catch(\Exception $e){
-                $message = $e->getMessage();
+                $message = "Ett fel uppstod och din registrering kunde inte slutföras.";
             }
         }
         return $this->view->getRegistrationForm($message,@$this->model->username);

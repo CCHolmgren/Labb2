@@ -2,9 +2,9 @@
 
 namespace Controller;
 
-require_once("../view/PageView.php");
-require_once("../view/Cookie.php");
-require_once("../model/Model.php");
+require_once(__ROOT__."/view/PageView.php");
+require_once(__ROOT__."/view/Cookie.php");
+require_once(__ROOT__."/model/Model.php");
 
 Class Controller{
 	private $Model;

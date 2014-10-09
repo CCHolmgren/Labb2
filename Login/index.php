@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-require_once("../controller/Controller.php");
+define("__ROOT__", "C:/User/Chrille/Desktop/Labb2/Labb2");
+require_once(__ROOT__."/controller/Controller.php");
 
 $Controller = new \Controller\Controller();
 echo $Controller->getHTML();

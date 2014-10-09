@@ -6,7 +6,7 @@
  * Time: 16:20
  */
 namespace View;
-require_once("../model/Model.php");
+require_once(__ROOT__."/model/Model.php");
 require_once("DateTimeView.php");
 
 class UsernameMissingException extends \Exception{}

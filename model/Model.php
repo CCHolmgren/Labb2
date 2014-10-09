@@ -34,7 +34,7 @@ Class Model extends Database {
         try {
             $connection = $this->getConnection();
             $sth = $connection->prepare("INSERT INTO users (username, password) VALUES(?,?)");
-            $sth->execute(array($this->username, $this->password));
+            $sth->execute(array($this->username, password_hash($this->password, PASSWORD_DEFAULT)));
         }
         catch(\Exception $e){
             throw $e;
@@ -82,13 +82,10 @@ Class Model extends Database {
     private function userExistsInDataBase($username, $password){
         try {
             $connection = $this->getConnection();
-            $sth = $connection->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-            $sth->execute(array($username, $password));//password_hash($password, PASSWORD_DEFAULT)));
-            $rows = $sth->fetch(\PDO::FETCH_NUM);
-            if($rows){
-                return true;
-            }
-            return false;
+            $sth = $connection->prepare("SELECT * FROM users WHERE username = ?");
+            $sth->execute(array($username));//password_hash($password, PASSWORD_DEFAULT)));
+            $rows = $sth->fetch(\PDO::FETCH_ASSOC);
+            return password_verify($password,$rows["password"]);
         }
         catch(\Exception $e){
             throw $e;
@@ -101,14 +98,11 @@ Class Model extends Database {
             $sth = $connection->query("SELECT * FROM users");
             $sth->execute();
             $result = $sth->fetchAll(\PDO::FETCH_ASSOC);
-            echo "<pre>";
-            print_r($result);
-            echo "</pre>";
 
             return $result;
         }
         catch(\Exception $e){
-            throw new \Exception($e);
+            throw $e;
         }
     }
 
@@ -142,19 +136,18 @@ Class Model extends Database {
 
 
 	public function verifyUser($password, $username, $Checkbox){
-        var_dump($this->userExistsInDataBase($username, $password));
-        return $this->userExistsInDataBase($username, $password);
+        //return $this->userExistsInDataBase($username, $password);
 
-		$password = crypt($password, $this->salt);
+		//$password = crypt($password, $this->salt);
 		if ($username == "") {
 			self::$errorMessage=1;
 		}
 		else if ($password == "") {
 			self::$errorMessage=2;
 		}
-		else if ($password == crypt($this->password, $this->salt) && $username == $this->admin) {
+		else if ($this->userExistsInDataBase($username, $password)) {
 			$this->logInSession($Checkbox);
-			$this->SaltedPassword = $password;
+			$this->SaltedPassword = password_hash($password,PASSWORD_DEFAULT);
 			return true;
 		}
 		else {

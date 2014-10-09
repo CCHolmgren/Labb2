@@ -6,17 +6,7 @@
  * Time: 15:29
  */
 session_start();
-
-require_once("../controller/RegistrationController.php");
+define("__ROOT__", "C:/Users/Chrille/Desktop/Labb2/Labb2");
+require_once(__ROOT__."/controller/RegistrationController.php");
 $controller = new \Controller\RegistrationController();
-try {
-    echo $controller->getHTML();
-}
-catch(Exception $e){
-    echo "<pre>";
-    print_r($e);
-    echo "</pre>";
-    echo "<pre>";
-    var_export($e);
-    echo "</pre>";
-}
+echo $controller->getHTML();
