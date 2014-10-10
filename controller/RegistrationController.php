@@ -28,7 +28,7 @@ class RegistrationController {
                 header("Location: " . "/Labb2/Login/" . "?username=" . urlencode($this->model->username) . "&message=".urlencode("Registrering av ny användare lyckades"));
                 exit;
             }catch(\Exception $e){
-                $message = "Ett fel uppstod och din registrering kunde inte slutföras.";
+                $message = $e->getMessage();
             }
         }
         return $this->view->getRegistrationForm($message,@$this->model->username);

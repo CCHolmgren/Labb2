@@ -37,7 +37,7 @@ Class Model extends Database {
             $sth->execute(array($this->username, password_hash($this->password, PASSWORD_DEFAULT)));
         }
         catch(\Exception $e){
-            throw $e;
+            throw new \Exception("Ett fel uppstod och din registrering kunde inte slutföras.");
         }
 
     }
@@ -76,7 +76,7 @@ Class Model extends Database {
             return false;
         }
         catch(\Exception $e){
-            throw $e;
+            throw new \Exception("Ett fel uppstod och din registrering kunde inte slutföras.");
         }
     }
     private function userExistsInDataBase($username, $password){
@@ -88,7 +88,7 @@ Class Model extends Database {
             return password_verify($password,$rows["password"]);
         }
         catch(\Exception $e){
-            throw $e;
+            throw new \Exception("Ett fel uppstod och din registrering kunde inte slutföras.");
         }
     }
 
@@ -102,7 +102,7 @@ Class Model extends Database {
             return $result;
         }
         catch(\Exception $e){
-            throw $e;
+            throw new \Exception("Ett fel uppstod och din registrering kunde inte slutföras.");
         }
     }
 
